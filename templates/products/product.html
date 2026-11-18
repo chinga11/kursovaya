@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container py-5">
+
+    <h2 class="mb-4">Все объявления</h2>
+        <form method="get" action="/" class="row g-2 mb-4">
+            <div class="col">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    class="form-control"
+                    placeholder="Поиск объявлений..."
+                >
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Найти</button>
+                {% if search %}
+                    <a href="/" class="btn btn-outline-secondary">Сбросить</a>
+                {% endif %}
+            </div>
+        </form>
+    <div class="row g-4">
+
+        {% for product in products %}
+
+        <div class="col-12 col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm">
+
+                {% if product.image %}
+                    <img
+                        src="{{ product.image.url }}"
+                        class="card-img-top"
+                        alt="{{ product.name }}"
+                        style="height: 220px; object-fit: cover;"
+                    >
+                {% else %} 
+                    <img
+                        src="{% static 'default.jpg' %}"
+                        class="card-img-top"
+                        alt="{{ product.name }}"
+                        style="height: 220px; object-fit: cover;"
+                    >
+
+                {% endif %}
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary mb-2">
+                        {{ product.category.name }}
+                    </span>
+
+                    <h5 class="card-title">
+                        {{ product.name }}
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        {{ product.description|truncatechars:120 }}
+                    </p>    
+                    {% if product.description|truncatechars:120 %}
+                        <a href="{% url 'detail_product' product.id %}" class="btn btn-link p-0">Читать далее</a>
+                        
+                       
+                    {% endif %}    
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+            <div class="alert alert-info">
+                Пока нет объявлений.
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <a href="/" class="btn btn-outline-secondary mb-4">← Все объявления</a>
+
+    <div class="row g-4">
+
+        <!-- Картинка -->
+        <div class="col-12 col-md-6">
+            {% if product.image %}
+                <img
+                    src="{{ product.image.url }}"
+                    class="img-fluid rounded shadow-sm w-100"
+                    alt="{{ product.name }}"
+                    style="max-height: 500px; object-fit: cover;"
+                >
+            {% else %}
+                <img
+                    src="{% static 'default.jpg' %}"
+                    class="img-fluid rounded shadow-sm w-100"
+                    alt="{{ product.name }}"
+                    style="max-height: 500px; object-fit: cover;"
+                >
+            {% endif %}
+        </div>
+
+        <!-- Информация -->
+        <div class="col-12 col-md-6">
+
+            {% if product.category %}
+                <span class="badge bg-primary mb-2">{{ product.category.name }}</span>
+            {% endif %}
+
+            <h2 class="mb-3">{{ product.name }}</h2>
+
+            <h5>Описание</h5>
+            <p class="text-muted">{{ product.description|linebreaks }}</p>
+
+            {% if product.tags.all %}
+                <h5 class="mt-4">Теги</h5>
+                <div>
+                    {% for tag in product.tags.all %}
+                        <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
