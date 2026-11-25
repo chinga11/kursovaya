@@ -9,14 +9,14 @@ from .forms import RegisterForm
 
 def register(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return redirect("/")
+        return redirect("post_list")
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("/")
+            return redirect("post_list")
     else:
         form = RegisterForm()
     return render(request, "registration/register.html", {"form": form})

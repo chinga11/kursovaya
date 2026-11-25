@@ -20,7 +20,7 @@ class Product(models.Model):
     category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
     tags=models.ManyToManyField(Tag,blank=True)
     image=models.ImageField(null=True,blank=True,upload_to="product")
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=False,default=1)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     def __str__(self):
         return f"{self.name}"
 

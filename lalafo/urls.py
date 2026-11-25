@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from product.views import hello_world,post_detail
-from product.views import my_name,say_name,post_list,create_post,delete_post
+from product.views import my_name,say_name,post_list,create_post,edit_post,delete_post
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include
@@ -31,10 +31,11 @@ urlpatterns = [
     path("",post_list,name='post_list'),
     path("product/<int:pk>/", post_detail, name="detail_product"),
     path("product/create/",create_post,name="create_post"),
+    path("product/<int:pk>/edit/", edit_post, name="edit_post"),
     path("product/<int:pk>/delete/", delete_post, name="delete_post"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("register/", register, name="register"),
-    path("login/", LoginView.as_view(), name="login"),
+    path("login/", LoginView.as_view(template_name="registration/login.html"), name="login"),
     ]
 
 if settings.DEBUG:
