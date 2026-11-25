@@ -12,6 +12,9 @@
             <a class="navbar-brand fw-semibold" href="{% url 'post_list' %}">Объявления</a>
             <div class="d-flex align-items-center gap-3 ms-auto">
                 {% if user.is_authenticated %}
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'cart' %}">
+                        Корзина <span class="badge bg-primary">{{ user.favorites.count }}</span>
+                    </a>
                     <a class="btn btn-primary btn-sm" href="{% url 'create_post' %}">Новое объявление</a>
                     <span class="text-dark">{{ user.username }}</span>
                     <form method="post" action="{% url 'logout' %}" class="m-0">

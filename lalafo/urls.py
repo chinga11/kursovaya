@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from product.views import hello_world,post_detail
-from product.views import my_name,say_name,post_list,create_post,edit_post,delete_post
+from product.views import (
+    add_comment, favorites_list, my_name, post_list, say_name, create_post,
+    edit_post, delete_post, toggle_favorite,
+)
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include
@@ -30,6 +33,9 @@ urlpatterns = [
     path("name/<str:name>", say_name),
     path("",post_list,name='post_list'),
     path("product/<int:pk>/", post_detail, name="detail_product"),
+    path("product/<int:pk>/comment/", add_comment, name="add_comment"),
+    path("product/<int:pk>/favorite/", toggle_favorite, name="toggle_favorite"),
+    path("cart/", favorites_list, name="cart"),
     path("product/create/",create_post,name="create_post"),
     path("product/<int:pk>/edit/", edit_post, name="edit_post"),
     path("product/<int:pk>/delete/", delete_post, name="delete_post"),
